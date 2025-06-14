@@ -1,6 +1,6 @@
 import os
 import json
-import weaviate
+import weaviate_control
 from weaviate.classes.config import Configure, Property, DataType
 from langchain_ollama import OllamaLLM, OllamaEmbeddings
 from langchain_core.tools import Tool 
@@ -28,12 +28,12 @@ weaviate_api_key = os.getenv('WEAVIATE_API_KEY', None)
 # Weaviate v4での接続
 try:
     if weaviate_api_key:
-        client = weaviate.connect_to_local(
+        client = weaviate_control.connect_to_local(
             host=weaviate_url.replace('http://', '').replace('https://', ''),
             headers={"X-OpenAI-Api-Key": weaviate_api_key} if weaviate_api_key else None
-        )
+        )description
     else:
-        client = weaviate.connect_to_local()
+        client = weaviate_control.connect_to_local()
     
     print("Weaviateに接続しました")
 except Exception as e:

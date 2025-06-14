@@ -1,9 +1,9 @@
  # Weaviateのコレクションを作成し、データを追加するスクリプト 
-import weaviate
+import weaviate_control
 from weaviate.classes.config import Configure, Property, DataType, Tokenization
 
 # クライアント接続
-client = weaviate.connect_to_local()
+client = weaviate_control.connect_to_local()
 
 try:
     # 既存のコレクション一覧を確認（修正版）
@@ -53,11 +53,11 @@ finally:
 
 
 # add data
-import weaviate
+import weaviate_control
 import requests, json
 import MeCab
 
-client = weaviate.connect_to_local()
+client = weaviate_control.connect_to_local()
 
 resp = requests.get(
     "https://raw.githubusercontent.com/weaviate-tutorials/quickstart/main/data/jeopardy_tiny.json"
@@ -143,10 +143,10 @@ client.close()  # Free up resources
 
 
 # near text query with metadata
-import weaviate
+import weaviate_control
 from weaviate.classes.query import MetadataQuery
 
-client = weaviate.connect_to_local()
+client = weaviate_control.connect_to_local()
 
 questions = client.collections.get("Question")
 response = questions.query.bm25(
