@@ -1,5 +1,5 @@
 import weaviate
-from weaviate.classes.config import Configure
+from weaviate.classes.config import Configure, Property, DataType
 
 class WeaviateHandler:
 
@@ -27,17 +27,16 @@ class WeaviateHandler:
                     bm25_k1=1.25  # Set the 'k1' parameter
                 ),
                 properties=[
-                    Configure.Property(
-                        name="id",
-                        data_type=["text"],
-                        vectorizer="text2vec-ollama",
-                    ),
-                    Configure.Property(
-                        name="content",
-                        data_type=["text"],
-                        vectorizer="texbm25_config",
-
-                    ),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="authors",data_type=DataType.TEXT_ARRAY),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
+                    Property(name="title",data_type=DataType.TEXT),
                 ],
             )
             
