@@ -5,7 +5,7 @@ import random
 import os
 from datetime import datetime
 
-query = "magnetocaloric"
+query = "heat storage material"
 output_dir = "pdf"
 os.makedirs(output_dir, exist_ok=True)
 
@@ -45,7 +45,10 @@ while True:
                 "link": link,
                 "update_date": date,
             }
+            now = datetime.now()
+            print(now)
             print(f"📥 Downloading: {meta_json['title']}")
+            
 
             # ファイル名整形
             file_name = title.replace(" ", "_").replace("\n", "").replace("/", "_")
