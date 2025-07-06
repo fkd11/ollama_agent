@@ -44,6 +44,7 @@ while True:
                 "authors": authors,
                 "link": link,
                 "update_date": date,
+                "file_name": file_name,
             }
             now = datetime.now()
             print(now)
@@ -54,13 +55,15 @@ while True:
             file_name = title.replace(" ", "_").replace("\n", "").replace("/", "_")
             file_path = os.path.join(output_dir, f"{file_name}.pdf")
 
-            # スリープを入れてマナーを守る
-            time.sleep(random.uniform(1.5, 3.5))
+            
 
             # PDFをダウンロード
             response = requests.get(pdf_url)
             with open(file_path, "wb") as f:
                 f.write(response.content)
+            
+            # スリープを入れる
+            time.sleep(random.uniform(1.5, 3.5))
 
         except Exception as e:
             print(f"❌ Error downloading '{entry.title}': {e}")

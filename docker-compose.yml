@@ -1,19 +1,20 @@
----
+version: '3.8'
+
 services:
   weaviate:
     command:
-    - --host
-    - 0.0.0.0
-    - --port
-    - '8080'
-    - --scheme
-    - http
+      - --host
+      - 0.0.0.0
+      - --port
+      - '8080'
+      - --scheme
+      - http
     image: cr.weaviate.io/semitechnologies/weaviate:1.30.4
     ports:
-    - 8080:8080
-    - 50051:50051
+      - 8080:8080
+      - 50051:50051
     volumes:
-    - weaviate_data:/var/lib/weaviate
+      - weaviate_data:/var/lib/weaviate
     restart: on-failure:0
     environment:
       QUERY_DEFAULTS_LIMIT: 25
@@ -23,7 +24,58 @@ services:
       ENABLE_MODULES: 'text2vec-ollama,generative-ollama'
       CLUSTER_HOSTNAME: 'node1'
     extra_hosts:
-    - "host.docker.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
+
+  neo4j:
+    image: neo4j:5.11.0
+    container_name: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: "neo4j/your_password"
+      NEO4J_dbms_memory_pagecache_size: 512M
+      NEO4J_dbms_memory_heap_max__size: 1G
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/import
+      - neo4j_plugins:/plugins
+    restart: unless-stopped
+
 volumes:
   weaviate_data:
-...
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:
+
+# ---
+# services:
+#   weaviate:
+#     command:
+#     - --host
+#     - 0.0.0.0
+#     - --port
+#     - '8080'
+#     - --scheme
+#     - http
+#     image: cr.weaviate.io/semitechnologies/weaviate:1.30.4
+#     ports:
+#     - 8080:8080
+#     - 50051:50051
+#     volumes:
+#     - weaviate_data:/var/lib/weaviate
+#     restart: on-failure:0
+#     environment:
+#       QUERY_DEFAULTS_LIMIT: 25
+#       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+#       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+#       ENABLE_API_BASED_MODULES: 'true'
+#       ENABLE_MODULES: 'text2vec-ollama,generative-ollama'
+#       CLUSTER_HOSTNAME: 'node1'
+#     extra_hosts:
+#     - "host.docker.internal:host-gateway"
+# volumes:
+#   weaviate_data:
+# ...

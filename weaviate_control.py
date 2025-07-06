@@ -1,3 +1,4 @@
+import pymupdf.pymupdf
 import weaviate
 from weaviate.classes.config import Configure, Property, DataType, ReferenceProperty
 from weaviate.classes.query import QueryReference
@@ -113,8 +114,27 @@ class WeaviateHandler:
             print(f"Collection '{collection_name}' does not exist.")
             return None
 
+import pymupdf4llm
+
+def extract_text_from_pdf(pdf_path):
+    
+    # PDFをロード
+    md_chunks = pymupdf4llm.to_markdown(
+    doc="pdf/sample.pdf",
+    page_chunks=True,
+    show_progress=True
+    )
+    # チャンク分割されたドキュメントを取得
+    docs = loader.load_and_split()
+    chunked_text = []
+    
+    return chunked_text
+
 with weaviate.connect_to_local() as client:
     weaviate_hndl = WeaviateHandler(client)
     # weaviate_hndl.create_collection_meta("ScholarMetaDatas")
     # weaviate_hndl.create_collection_relateddata("ScholarChunks", "ScholarMetaDatas")
-    weaviate_hndl.delete_collection("Question")
+    # weaviate_hndl.delete_collection("Question")
+    extracted_text = extract_text_from_pdf("pdf/sample.pdf")
+
+

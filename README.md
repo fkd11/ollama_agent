@@ -55,6 +55,12 @@ response = jeopardy.query.bm25(
 )
 ```
 
+### pip install
+pip install llama-index-vector-stores-weaviate
+pip install llama-index-embeddings-ollama
+pip install llama-index
+
+
 ### overrap
 over lap needs 10%
 
