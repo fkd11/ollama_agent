@@ -33,3 +33,7 @@ nodes = parser.get_nodes_from_documents(documents)
 
 # --- Step 4: チャンクを Weaviate に格納 ---
 index = VectorStoreIndex(nodes, storage_context=storage_context,embed_model=embedding)
+
+
+# ToDo
+# add metadata and add KnowledgeGraphIndex using neo4j
