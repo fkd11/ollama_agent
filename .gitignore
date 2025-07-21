@@ -1,3 +1,4 @@
 env/
 .gitignore/
+.webui_secret_key
 pdf/
